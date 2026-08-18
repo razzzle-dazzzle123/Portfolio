@@ -1,7 +1,6 @@
 import sys
 from pathlib import Path
 
-# Add project root to Python's import path
 ROOT_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
@@ -24,14 +23,14 @@ class ChatRequest(BaseModel):
     conversation_history: list[Message] = Field(default_factory=list)
 
 
-@app.get("/")
+@app.get("/api")
 def home():
     return {
         "message": "Portfolio AI backend is running"
     }
 
 
-@app.post("/chat")
+@app.post("/api/chat")
 def chat(request: ChatRequest):
 
     answer = ask_llm(
