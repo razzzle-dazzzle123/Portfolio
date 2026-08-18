@@ -1,29 +1,18 @@
+import sys
+from pathlib import Path
+
+# Add project root to Python's import path
+ROOT_DIR = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT_DIR))
+
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from portfolio_base import ask_llm
 
 
 app = FastAPI()
 
-
-# =========================
-# CORS
-# =========================
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-
-# =========================
-# DATA MODELS
-# =========================
 
 class Message(BaseModel):
     role: str
@@ -32,12 +21,8 @@ class Message(BaseModel):
 
 class ChatRequest(BaseModel):
     question: str
-    conversation_history: list[Message] = []
+    conversation_history: list[Message] = Field(default_factory=list)
 
-
-# =========================
-# ROUTES
-# =========================
 
 @app.get("/")
 def home():
