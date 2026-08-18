@@ -52,7 +52,7 @@ def read_text(file_path):
 
 BASE_DIR = Path(__file__).resolve().parent
 
-resume_text = read_pdf(BASE_DIR / "resume.pdf")
+resume_text = read_pdf(BASE_DIR / "Resume.pdf")
 about_me = read_text(BASE_DIR / "about_me.txt")
 
 # =========================
