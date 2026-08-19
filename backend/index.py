@@ -30,14 +30,14 @@ class ChatRequest(BaseModel):
     conversation_history: list[Message] = Field(default_factory=list)
 
 
-@app.get("/api")
+@app.get("/")
 def home():
     return {
         "message": "Portfolio AI backend is running"
     }
 
 
-@app.post("/api/chat")
+@app.post("/chat")
 def chat(request: ChatRequest):
     answer = ask_llm(
         request.question,
